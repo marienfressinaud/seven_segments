@@ -27,7 +27,8 @@ It generates a binary under `./target/debug/seven_segments`. You can execute
 the binary directly or use cargo again:
 
 ```console
-$ cargo run
+$ cargo run 42
+42
 ```
 
 In this case, cargo makes sure the binary is up-to-date with the latest version
