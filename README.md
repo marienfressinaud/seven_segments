@@ -33,3 +33,14 @@ $ cargo run 42
 
 In this case, cargo makes sure the binary is up-to-date with the latest version
 of the code.
+
+## Running tests
+
+Tests can be run with:
+
+```console
+$ cargo test
+```
+
+We automatically run test suite against TravisCI when opening a PR. Merging on
+`master` requires CI to be green.
