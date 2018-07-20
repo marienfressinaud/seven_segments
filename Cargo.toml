@@ -1,0 +1,6 @@
+[package]
+name = "seven_segments"
+version = "0.1.0"
+authors = ["Marien Fressinaud <dev@marienfressinaud.fr>"]
+
+[dependencies]
