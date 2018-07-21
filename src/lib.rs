@@ -16,6 +16,12 @@ pub fn split_into_digits(number: i32) -> Vec<u8> {
     digits
 }
 
+pub fn parse_digits(string: &str) -> Result<Vec<u8>, std::num::ParseIntError> {
+    let number = parse_number(string)?;
+    let digits = split_into_digits(number);
+    Ok(digits)
+}
+
 #[cfg_attr(rustfmt, rustfmt_skip)]
 const DIGIT_PATTERNS: &'static [&'static [&'static str]] = &[
     &[" _ ", "   ", " _ ", " _ ", "   ", " _ ", " _ ", " _ ", " _ ", " _ "],
@@ -100,6 +106,50 @@ mod tests {
         let resulting_digits = split_into_digits(number);
 
         assert_eq!(resulting_digits, expected_digits);
+    }
+
+    #[test]
+    fn parse_digits_accepts_number() {
+        let string_number = "42";
+        let expected_digits = [4, 2];
+
+        let resulting_digits = parse_digits(string_number).unwrap();
+
+        assert_eq!(resulting_digits, expected_digits);
+    }
+
+    #[test]
+    fn parse_digits_accepts_surrounding_spaces() {
+        let string_number = "   42  ";
+        let expected_digits = [4, 2];
+
+        let resulting_digits = parse_digits(string_number).unwrap();
+
+        assert_eq!(resulting_digits, expected_digits);
+    }
+
+    #[test]
+    fn parse_digits_fails_when_passing_a_non_parsable_string() {
+        let string_number = "foo42";
+
+        let resulting_digits = parse_digits(string_number);
+
+        assert!(
+            resulting_digits.is_err(),
+            format!("{} is supposed to not be parsable", string_number)
+        );
+    }
+
+    #[test]
+    fn parse_digits_fails_when_passing_an_empty_string() {
+        let string_number = "";
+
+        let resulting_digits = parse_digits(string_number);
+
+        assert!(
+            resulting_digits.is_err(),
+            "Empty string is supposed to not be parsable"
+        );
     }
 
     #[test]
