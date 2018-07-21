@@ -46,7 +46,7 @@ $ cargo test
 
 We automatically run test suite against TravisCI when opening a PR. Merging on
 `master` requires CI to be green. We use Rust nightly on the CI in order to be
-able to use the `rustfmt` `--cache` argument.
+able to use the `rustfmt` `--check` argument.
 
 ## Using Docker
 
