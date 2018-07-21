@@ -21,10 +21,8 @@ fn run() -> Result<String, &'static str> {
         None => return Err("Command expects at least one argument"),
     };
 
-    let digits = match parse_digits(&arg1) {
-        Ok(digits) => digits,
-        Err(_) => return Err("Command expects the argument to be a number"),
-    };
-    let output = render_digits(&digits);
-    Ok(output)
+    match parse_digits(&arg1) {
+        Ok(digits) => Ok(render_digits(&digits)),
+        Err(_) => Err("Command expects the argument to be a number"),
+    }
 }

@@ -1,11 +1,10 @@
 pub fn parse_digits(string: &str) -> Result<Vec<u8>, &'static str> {
     let mut digits: Vec<u8> = Vec::new();
     for c in string.trim().chars() {
-        let digit = match c.to_digit(10) {
-            Some(d) => d,
+        match c.to_digit(10) {
+            Some(digit) => digits.push(digit as u8),
             None => return Err("parameter cannot be parsed as digits"),
         };
-        digits.push(digit as u8);
     }
     Ok(digits)
 }
