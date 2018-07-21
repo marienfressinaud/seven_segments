@@ -22,7 +22,7 @@ fn run() -> Result<String, &'static str> {
     };
 
     match parse_digits(&arg1) {
-        Ok(digits) => Ok(render_digits(&digits)),
+        Ok(digits) => Ok(render_digits(digits)),
         Err(_) => Err("Command expects the argument to be a number"),
     }
 }

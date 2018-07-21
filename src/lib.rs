@@ -16,7 +16,7 @@ const DIGIT_PATTERNS: &'static [&'static [&'static str]] = &[
     &["|_|", "  |", "|_ ", " _|", "  |", " _|", "|_|", "  |", "|_|", " _|"],
 ];
 
-pub fn render_digits(digits: &Vec<u8>) -> String {
+pub fn render_digits(digits: Vec<u8>) -> String {
     let mut output = String::new();
     for position in 0..=2 {
         let rendered_position = digits
@@ -106,7 +106,7 @@ mod tests {
  _|
 "#.trim_left_matches('\n');
 
-        let resulting_output = render_digits(&digits);
+        let resulting_output = render_digits(digits);
 
         assert_eq!(resulting_output, expected_output);
     }
@@ -120,7 +120,7 @@ mod tests {
   | |_ 
 "#.trim_left_matches('\n');
 
-        let resulting_output = render_digits(&digits);
+        let resulting_output = render_digits(digits);
 
         assert_eq!(resulting_output, expected_output);
     }
