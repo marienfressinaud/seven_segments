@@ -47,3 +47,32 @@ $ cargo test
 We automatically run test suite against TravisCI when opening a PR. Merging on
 `master` requires CI to be green. We use Rust nightly on the CI in order to be
 able to use the `rustfmt` `--cache` argument.
+
+## Using Docker
+
+If you prefer to use Docker instead of installing Rust toolchain, a
+`Dockerfile` is provided. Its entrypoint is `cargo`.
+
+Please note that we don't recommend to use Docker, prefer to install Rust on
+your PC instead.
+
+First, build the image with:
+
+```console
+$ docker build -t cargo .
+```
+
+Then, you can build the binary with:
+
+```console
+$ docker run --rm -v "$(pwd):/code" --user $(id -u) cargo
+```
+
+You can override the default command (i.e. `build`):
+
+```console
+$ docker run --rm -v "$(pwd):/code" --user $(id -u) cargo run 42
+     _ 
+|_|  _|
+  | |_ 
+```
