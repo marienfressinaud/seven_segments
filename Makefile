@@ -4,9 +4,9 @@ IMAGE_NAME = cargo
 ifdef DOCKER
 CURRENT_DIR = $(shell pwd)
 USER = $(shell id -u):$(shell id -g)
-RUN = docker run --rm -v $(CURRENT_DIR):/code --user $(USER) $(IMAGE_NAME)
+CARGO = docker run --rm -v $(CURRENT_DIR):/code --user $(USER) $(IMAGE_NAME)
 else
-RUN = cargo
+CARGO = cargo
 endif
 
 .PHONY: docker-build
@@ -15,15 +15,15 @@ docker-build: ## Build the Docker image
 
 .PHONY: build
 build: ## Build the application binary
-	$(RUN)
+	$(CARGO)
 
 .PHONY: run
 run: ## Run the application binary - take N= argument
-	$(RUN) run $(N)
+	$(CARGO) run $(N)
 
 .PHONY: test
 test: ## Run the test suite
-	$(RUN) test
+	$(CARGO) test
 
 .PHONY: help
 help:
