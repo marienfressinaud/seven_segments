@@ -28,7 +28,9 @@ the binary directly or use cargo again:
 
 ```console
 $ cargo run 42
-42
+     _ 
+|_|  _|
+  | |_ 
 ```
 
 In this case, cargo makes sure the binary is up-to-date with the latest version
