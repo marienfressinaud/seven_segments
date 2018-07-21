@@ -76,3 +76,27 @@ $ docker run --rm -v "$(pwd):/code" --user $(id -u) cargo run 42
 |_|  _|
   | |_ 
 ```
+
+## Using `make` shortcuts
+
+A Makefile is provided to handle common commands:
+
+```console
+$ make build # equivalent to `cargo build`
+$ make N=42 run # equivalent to `cargo run 42`
+$ make test # equivalent to `cargo test`
+```
+
+You can use Docker with these three commands by passing a `DOCKER` env var:
+
+```console
+$ make DOCKER=yes build
+$ make DOCKER=yes N=42 run
+$ make DOCKER=yes test
+```
+
+A fourth command is provided to build the docker image:
+
+```console
+$ make docker-build
+```
