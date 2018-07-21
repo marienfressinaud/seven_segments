@@ -15,7 +15,7 @@ docker-build: ## Build the Docker image
 
 .PHONY: build
 build: ## Build the application binary
-	$(CARGO)
+	$(CARGO) build
 
 .PHONY: run
 run: ## Run the application binary - take N= argument
