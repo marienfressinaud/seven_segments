@@ -16,9 +16,15 @@ pub fn split_into_digits(number: i32) -> Vec<u8> {
     digits
 }
 
-pub fn parse_digits(string: &str) -> Result<Vec<u8>, std::num::ParseIntError> {
-    let number = parse_number(string)?;
-    let digits = split_into_digits(number);
+pub fn parse_digits(string: &str) -> Result<Vec<u8>, &'static str> {
+    let mut digits: Vec<u8> = Vec::new();
+    for c in string.trim().chars() {
+        let digit = match c.to_digit(10) {
+            Some(d) => d,
+            None => return Err("parameter cannot be parsed as digits"),
+        };
+        digits.push(digit as u8);
+    }
     Ok(digits)
 }
 
@@ -141,15 +147,35 @@ mod tests {
     }
 
     #[test]
-    fn parse_digits_fails_when_passing_an_empty_string() {
+    fn parse_digits_accepts_empty_strings() {
         let string_number = "";
+        let expected_digits = [];
 
-        let resulting_digits = parse_digits(string_number);
+        let resulting_digits = parse_digits(string_number).unwrap();
 
-        assert!(
-            resulting_digits.is_err(),
-            "Empty string is supposed to not be parsable"
-        );
+        assert_eq!(resulting_digits, expected_digits);
+    }
+
+    #[test]
+    fn parse_digits_accepts_big_numbers() {
+        let string_number = "184467440737095516159";
+        let expected_digits = [
+            1, 8, 4, 4, 6, 7, 4, 4, 0, 7, 3, 7, 0, 9, 5, 5, 1, 6, 1, 5, 9,
+        ];
+
+        let resulting_digits = parse_digits(string_number).unwrap();
+
+        assert_eq!(resulting_digits, expected_digits);
+    }
+
+    #[test]
+    fn parse_digits_accepts_leading_zeros() {
+        let string_number = "0042";
+        let expected_digits = [0, 0, 4, 2];
+
+        let resulting_digits = parse_digits(string_number).unwrap();
+
+        assert_eq!(resulting_digits, expected_digits);
     }
 
     #[test]
