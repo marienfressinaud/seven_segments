@@ -3,7 +3,7 @@ extern crate seven_segments;
 use std::env;
 use std::process;
 
-use seven_segments::{parse_number, render_digits, split_into_digits};
+use seven_segments::{parse_digits, render_digits};
 
 fn main() {
     let mut output = String::new();
@@ -22,12 +22,10 @@ fn run(output: &mut String) -> Result<(), &'static str> {
         None => return Err("Command expects at least one argument"),
     };
 
-    let number = match parse_number(&arg1) {
-        Ok(number) => number,
+    let digits = match parse_digits(&arg1) {
+        Ok(digits) => digits,
         Err(_) => return Err("Command expects the argument to be a number"),
     };
-
-    let digits = split_into_digits(number);
     render_digits(&digits, output);
     Ok(())
 }
